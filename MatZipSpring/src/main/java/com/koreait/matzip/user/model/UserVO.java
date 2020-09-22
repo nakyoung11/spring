@@ -1,4 +1,4 @@
-package com.koreait.matzip.model;
+package com.koreait.matzip.user.model;
 
 public class UserVO {
 	private int i_user;

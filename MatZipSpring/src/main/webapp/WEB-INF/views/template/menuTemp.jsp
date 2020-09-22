@@ -25,9 +25,9 @@
 
 			<h1 class="hidden">MatZip</h1>
 			<nav id=menu>
-				<a href="/restaurant/restMap" class="round">
+				<a href="/rest/restMap" class="round">
 				<span class="material-icons"> location_on </span></a>
-				<a href="/restaurant/restReg" class="round">
+				<a href="/rest/restReg" class="round">
 				<span class="material-icons">add_business</span>
 			    <a href="/user/restFavorite" class="round">
 			    <span class="material-icons">favorite</span></a>
@@ -54,7 +54,7 @@
 			</div>
 		</header>
 		<section>
-			<jsp:include page="/WEB-INF/views/${views}.jsp"></jsp:include>
+			<jsp:include page="/WEB-INF/views/${view}.jsp"></jsp:include>
 		</section>
 		<footer> 회사정보 </footer>
 	</div>

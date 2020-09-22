@@ -4,7 +4,7 @@
 <div id="sectionContainerCenter">
 	<div>
 	<span class="material-icons" style="font-size:200px" id="stor" >storefront</span>
-		<form action="/restaurant/restRegProc" method="post" id="frm" onsubmit="return chkFrm()">
+		<form action="/rest/restReg" method="post" id="frm" onsubmit="return chkFrm()">
 			<div>
 				<input type="text" name="nm" placeholder="가게명">
 			</div>
@@ -20,14 +20,14 @@
 			<div>
 				<input type="hidden" name="lng" var="0">
 			</div>
-			<div>
+		 <div>
 				카테고리: <select name="cd_category">
 					<option value="0">-----선택-------</option>
 					<c:forEach items="${categoryList}" var="item">
 						<option value="${item.cd}">${item.val}</option>
 					</c:forEach>
 				</select>
-			</div>
+			</div> 
 			<div>
 				<input type="submit" value="등록">
 			</div>

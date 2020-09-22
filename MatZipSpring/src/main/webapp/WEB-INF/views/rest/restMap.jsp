@@ -13,16 +13,43 @@
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=	72c0231a0bfe0d103941d477d149d70e"></script>
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	<script>
+	
+		var markerList=[]
 			
 		const options = { //지도를 생성할 때 필요한 기본 옵션
 			center: new kakao.maps.LatLng(35.8654527, 128.5933207), //지도의 중심좌표.
 			level: 5 //지도의 레벨(확대, 축소 정도)
 		};
 	
-		var map = new kakao.maps.Map(mapContainer, options);
+		const map = new kakao.maps.Map(mapContainer, options);
 		
 		function getRestaurantList() {
-			axios.get('/restaurant/ajaxGetList').then(function(res) {
+			
+			//마커지우기
+			markerList.forEach(function(marker){
+				marker.setMap(null)
+			})
+			
+			const bounds = map.getBounds()
+			const southWest=bounds.getSouthWest(); 
+			const northEast=bounds.getNorthEast()
+			
+			console.log("southWest"+southWest)
+			console.log("northEast"+northEast)
+			
+			const sw_lat=southWest.getLat()
+			const sw_lng=southWest.getLng()
+			const ne_lat=northEast.getLat()
+			const ne_lng=northEast.getLng()
+			
+			axios.get('/rest/ajaxGetList', {
+					
+					params:{	
+					sw_lat, sw_lng, ne_lat, ne_lng
+					}
+					
+				}).then(function(res) {
+				
 				console.log(res.data)
 				
 				res.data.forEach(function(item) {					
@@ -30,7 +57,8 @@
 				})
 			})		
 		}
-		getRestaurantList()
+		
+		kakao.maps.event.addListener(map,'tilesloaded', getRestaurantList)
 		
 
 		
@@ -62,6 +90,8 @@
 			})
 			
 			marker.setMap(map)
+			
+			markerList.push(marker)
 		}
 		
 		function addEvent(target, type, callback) {
@@ -73,7 +103,7 @@
 		}
 		
 		function moveToDetail(i_rest){
-			location.href='/restaurant/restDetail?i_rest='+i_rest
+			location.href='/rest/restDetail?i_rest='+i_rest
 		}
 		
 		
