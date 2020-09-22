@@ -23,9 +23,10 @@ public class RestService {
 	
 	public List<RestDMI> selRestList(RestPARAM param){	
 		return mapper.selRestList(param);	
-	
-	
+
 	}
+	
+	
 	
 	public List<CodeVO> selcategoryList(){
 		CodeVO p= new CodeVO();
@@ -41,8 +42,11 @@ public class RestService {
 		int cd_category=param.getCd_category();
 		
 		return mapper.insRest(param);
-		
-		
+				
+	}
+	
+	public RestDMI selRest(RestPARAM param) {
+		return mapper.selRest(param);
 	}
 
 }

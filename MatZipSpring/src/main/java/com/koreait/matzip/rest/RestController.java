@@ -2,6 +2,7 @@ package com.koreait.matzip.rest;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.koreait.matzip.CommonUtils;
 import com.koreait.matzip.Const;
 import com.koreait.matzip.SecurityUtils;
 import com.koreait.matzip.ViewRef;
+import com.koreait.matzip.model.RestaurantDomain;
 import com.koreait.matzip.rest.model.RestDMI;
 import com.koreait.matzip.rest.model.RestPARAM;
 
@@ -34,6 +37,19 @@ public class RestController {
 		return ViewRef.TEMP_MENU_TEMP;
 		
 	}
+	@RequestMapping(value ="/detail", method = RequestMethod.GET)
+	public String restDetail(Model model, RestPARAM param, HttpSession hs){
+		param.setI_user(SecurityUtils.getLoginUserPk(hs));
+		
+		RestDMI data=service.selRest(param);
+		
+		model.addAttribute("data", data);
+		model.addAttribute(Const.TITLE,data.getNm());
+		model.addAttribute(Const.VIEW,"rest/restDetail");
+		return ViewRef.TEMP_MENU_TEMP;
+		
+	}
+	
 	
 	@RequestMapping(value ="/restReg", method = RequestMethod.GET)
 	public String restReg(Model model){

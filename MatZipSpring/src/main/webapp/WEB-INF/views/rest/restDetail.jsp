@@ -45,8 +45,8 @@
 					</span>
 				</div>
 				<div class="status">
-					<span class="cnt hit">${data.cntHits}</span> <span
-						class="cnt favorite">${data.cntFavorite}</span>
+					<span class="cnt hit">${data.hits}</span> <span
+						class="cnt favorite">${data.cnt_favorite}</span>
 				</div>
 			</div>
 			<h2>추천메뉴 등록</h2>

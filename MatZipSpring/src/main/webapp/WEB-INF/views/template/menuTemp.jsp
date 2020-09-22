@@ -25,15 +25,25 @@
 
 			<h1 class="hidden">MatZip</h1>
 			<nav id=menu>
-				<a href="/rest/restMap" class="round">
+				<a href="/rest/map" class="round">
 				<span class="material-icons"> location_on </span></a>
+				
+				<c:if test="${loginUser!=null}">	
 				<a href="/rest/restReg" class="round">
-				<span class="material-icons">add_business</span>
+				<span class="material-icons">add_business</span></a>
+				</c:if>
+				<c:if test="${loginUser==null}">
+				<a href="#" onclick="alert('로그인이 필요합니다.')" class="round">
+				<span class="material-icons">add_business</span></a>
+				</c:if>
+			
 			    <a href="/user/restFavorite" class="round">
 			    <span class="material-icons">favorite</span></a>
 			<div id="search">
 			<input type="search" placeholder="검색어를 입력하세요"></div>
 			</nav>
+			
+			<c:if test="${loginUser!=null}">
 			
 			<div id="userinfo">
 				<div class="containerPImg">
@@ -47,17 +57,28 @@
 						</c:otherwise>
 					</c:choose>
 				</div>
-				<div id="userNm">${loginUser.nm}님환영합니다.</div>
-				<div id="logOut">
-					<a href="/user/logout">로그아웃</a>
+				<div id="userNm">${loginUser.nm}님환영합니다.</div>	
+					<div id="logOut">
+						<a href="/user/logout">로그아웃</a>
+					</div>
 				</div>
+			</c:if>
+			<c:if test="${loginUser==null}">
+			<div id="logouts">
+						<a href="/user/login">로그인</a>
 			</div>
-		</header>
+			</c:if>
+				</header>
+		
+			
+	
 		<section>
 			<jsp:include page="/WEB-INF/views/${view}.jsp"></jsp:include>
+			
 		</section>
+			</div>
 		<footer> 회사정보 </footer>
-	</div>
+	
 
 </body>
 </html>

@@ -12,4 +12,5 @@ import com.koreait.matzip.rest.model.RestVO;
 public interface RestMapper {
 	public int insRest(RestVO p);
 	public List<RestDMI> selRestList(RestPARAM p);
+	public RestDMI selRest(RestPARAM p);
 }
