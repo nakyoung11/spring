@@ -3,22 +3,23 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<div id="sectionContainerCenter">
+<div id="sectionContainerCenter">	
+
 	<div>
+
+		<div class="recommendMenuContainer">
 		<c:if test="${loginUser.i_user==data.i_user}">
 			<div>
 				<!-- el식은 자바스크립에서 사용 불가.. el은 자바가 쓰는 것!!  -->
 				<a href="/restaurant/restMod?i_rest$={data.i_rest}"><button>수정</button></a>
 				<button onclick="isDel()">가게 삭제</button>
 			</div>
-
 		</c:if>
-		<div class="recommendMenuContainer">
-			<c:forEach items="${recommendMenuList}" var="item">
+			<c:forEach items="${recMenuList}" var="item">
 				<div class="recMenuItem" id="recMeunItem_${item.seq}">
 					<div class="pic">
 						<c:if test="${item.menu_pic != null and item.menu_pic != ''}">
-							<img src="/res/img/restaurant/${data.i_rest}/${item.menu_pic}">
+							<img src="/res/img/rest/${data.i_rest}/rec_menu/${item.menu_pic}">
 						</c:if>
 
 					</div>
@@ -45,13 +46,12 @@
 					</span>
 				</div>
 				<div class="status">
-					<span class="cnt hit">${data.hits}</span> <span
-						class="cnt favorite">${data.cnt_favorite}</span>
+					<span class="material-icons">visibility</span><span class="cnt hit">${data.hits}</span> 
+					<span class="material-icons">favorite</span><span class="cnt favorite">${data.cnt_favorite}</span>
 				</div>
 			</div>
 			<h2>추천메뉴 등록</h2>
-			<form action="/restaurant/addRecMenusProc"
-				enctype="multipart/form-data" method="post">
+			<form action="/rest/recMenus" enctype="multipart/form-data" method="post">
 				<input type="hidden" name="i_rest" value="${data.i_rest}">
 				<div>
 					<button type="button" onclick="addRecMenu()">메뉴추가</button>
@@ -62,8 +62,7 @@
 				</div>
 			</form>
 			<h2>메뉴판 등록</h2>
-			<form action="/restaurant/addMenusProc" enctype="multipart/form-data"
-				method="post">
+			<form action="/rest/addMenus" enctype="multipart/form-data" method="post">
 				<input type="hidden" name="i_rest" value="${data.i_rest}"> <input
 					type="file" name="menu_pic" multiple>
 				<!--multiple 여러개 선택가능  -->
@@ -100,10 +99,8 @@
 													src="/res/img/restaurant/${data.i_rest}/menu/${menuList[i].menu_pic}">
 											</div>
 
-											<div class="delIconContainer"
-												onclick="delMenu(${data.i_rest}, ${item.seq})">
-
-												<span class="material-icons">clear</span>
+											<div class="delIconContainer" onclick="delRecMenu(${data.i_rest}, ${item.seq})">
+													<span class="material-icons">clear</span>
 											</div>
 										</div>
 									</c:forEach>
@@ -129,10 +126,11 @@
 <script>
 	
 	function delRecMenu(i_rest, seq) {
-		console.log(i_rest)
-		console.log(seq)
+		if(!confirm('삭제하시겠습니까?')){
+			return
+		}
 		
-		axios.get('/restaurant/ajaxDelRecMenu',{
+		axios.get('/rest/ajaxDelRecMenu',{
 			params: {
 				i_rest, seq	
 			}
@@ -143,17 +141,6 @@
 		})
 	}
 	
-	function delcMenu(i_rest, seq) {
-		axios.get('/restaurant/ajaxDelMenu',{
-			params: {
-				i_rest, seq	
-			}
-		}).then(function (res) {
-			if(res.data==1)
-			var ele=document.querySelector("#MeunItem_"+seq)
-			ele.remove()
-		})
-	}
 	
 	var idx=0; //함수를 실행할때마다 1씩 증가시킴
 	function addRecMenu(){
@@ -166,7 +153,7 @@
 		inputPrice.setAttribute("name","menu_price")
 		var inputPic =document.createElement('input')
 		inputPic.setAttribute("type", "file")
-		inputPic.setAttribute("name","menuPic_"+ idx++)
+		inputPic.setAttribute("name","menu_pic")
 	
 		div.append('메뉴: ')
 		div.append(inputNm)
@@ -183,8 +170,9 @@
 
 
 	function isDel() {
+	
 		if (confirm('삭제하시겠습니까?')) {
-			location.herf = "/restaurant/restDel?i_rest=${data.i_rest}"
+			location.href='/rest/del?i_rest=${data.i_rest}'
 		}
 	}
 </script>
