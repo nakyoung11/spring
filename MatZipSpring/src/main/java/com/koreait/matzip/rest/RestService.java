@@ -12,10 +12,13 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.koreait.matzip.CommonUtils;
+import com.koreait.matzip.Const;
 import com.koreait.matzip.FileUtils;
+import com.koreait.matzip.SecurityUtils;
 import com.koreait.matzip.model.CodeVO;
 import com.koreait.matzip.model.CommonMapper;
 import com.koreait.matzip.rest.model.RestDMI;
+import com.koreait.matzip.rest.model.RestFile;
 import com.koreait.matzip.rest.model.RestPARAM;
 import com.koreait.matzip.rest.model.RestRecMenuVO;
 import com.koreait.matzip.rest.model.RestVO;
@@ -55,8 +58,12 @@ public class RestService {
 
 		return mapper.selRest(param);
 	}
+
+	public List<RestRecMenuVO> selRestMenus(RestPARAM param) {
+		return mapper.selRestMenus(param);
+	}
 	
-	public List<RestRecMenuVO> selRestRecMenus(RestPARAM param){
+	public List<RestRecMenuVO> selRestRecMenus(RestPARAM param) {
 		return mapper.selRestRecMenus(param);
 	}
 
@@ -75,13 +82,39 @@ public class RestService {
 		return mapper.delRestMenu(param);
 	}
 
+	public int insMenus(RestFile param, String path, int i_user) {
+		int i_rest = param.getI_rest();
+
+		List<RestRecMenuVO> list = new ArrayList();
+
+		for (MultipartFile file : param.getMenu_pic()) {
+			RestRecMenuVO vo = new RestRecMenuVO();
+			list.add(vo);
+
+			String saveFileNm = FileUtils.saveFile(path, file);
+			vo.setMenu_pic(saveFileNm);
+			vo.setI_rest(param.getI_rest());
+		}
+
+		for (RestRecMenuVO vo : list) {
+			mapper.insRestMenu(vo);
+		}
+
+		return Const.SUCCESS;
+
+	}
+
 	public int insRecMenus(MultipartHttpServletRequest mReq) {
+		int i_user = SecurityUtils.getLoginUserPk(mReq.getSession());
 		int i_rest = Integer.parseInt(mReq.getParameter("i_rest"));
+		System.out.println("i_rest: " +i_rest);
+
+
 		List<MultipartFile> fileList = mReq.getFiles("menu_pic");
 		String[] menuNmArr = mReq.getParameterValues("menu_nm");
 		String[] menuPriceArr = mReq.getParameterValues("menu_price");
 
-		String path = mReq.getServletContext().getRealPath("resources/img/rest/" + i_rest + "/rec_menu/");
+		String path = Const.realPath + "resources/img/rest/" + i_rest + "/rec_menu/";
 
 		List<RestRecMenuVO> list = new ArrayList();
 
@@ -95,50 +128,41 @@ public class RestService {
 			vo.setMenu_nm(menu_nm);
 			vo.setMenu_price(menu_price);
 
-			// 저장!
 			MultipartFile mf = fileList.get(i);
-			if (mf.isEmpty()) {
-				continue;
-			} // 파일없으면 스킵
-
-			String originFileNm = mf.getOriginalFilename();
-			String ext = FileUtils.getExt(originFileNm);
-			String saveFileNm = UUID.randomUUID() + ext;
-
-			try {
-				mf.transferTo(new File(path + saveFileNm));
-				vo.setMenu_pic(saveFileNm);
-
-			} catch (Exception e) {
-
-			}
+			String saveFileNm = FileUtils.saveFile(path, mf);
+			vo.setMenu_pic(saveFileNm);
 		}
+
 		for (RestRecMenuVO vo : list) {
 			mapper.insRestRecMenu(vo);
 		}
 
 		return i_rest;
 	}
-	
+
 	public int delRecMenu(RestPARAM param, String realPath) {
-		List<RestRecMenuVO> list= mapper.selRestRecMenus(param);
-		if(list.size() == 1) { //내가쓰고 삭제할것도 왔음.
+		List<RestRecMenuVO> list = mapper.selRestRecMenus(param);
+
+		System.out.println("list0: " + list.size());
+		if (list.size() == 1) { // 내가쓰고 삭제할것도 왔음.
 			RestRecMenuVO item = list.get(0);
-			
-			
-			if(item.getMenu_pic()!=null && !item.getMenu_pic().equals("")) {
-				File file =new File(realPath + item.getMenu_pic());
-				if(file.exists()) { //존재여부쳌
-					if(file.delete()) {
+
+			if (item.getMenu_pic() != null && !item.getMenu_pic().equals("")) {
+				File file = new File(realPath + item.getMenu_pic());
+				if (file.exists()) { // 존재여부쳌
+					if (file.delete()) {
 						return mapper.delRestRecMenu(param);
-					}else {return 0;}
-					
+					} else {
+						return 0;
+					}
+
 				}
 			}
 		}
-				
+
 		return mapper.delRestRecMenu(param);
-		
+
 	}
+
 
 }

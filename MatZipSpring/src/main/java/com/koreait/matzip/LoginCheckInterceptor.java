@@ -7,18 +7,20 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
 	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-			throws Exception {
-		
+	public boolean preHandle(HttpServletRequest request, 
+			HttpServletResponse response, Object handler) throws Exception {		
 		String uri = request.getRequestURI();
-		System.out.println("uri :"+uri);
+		System.out.println("uri : " + uri);
 		String[] uriArr = uri.split("/");
 		
-		if(uriArr[1].equals("res")) { //리소스 통과
+		System.out.println("uriArr.length : " + uriArr.length);
+		
+		if(uri.equals("/")) {
 			return true;
-		}else if(uriArr.length<3) { //주소가 아닌경우
-			return false;
-		}
+		} else if(uriArr[1].equals("res")) { //리소스 (js, css, img)
+			return true;
+		} 
+		
 		
 		System.out.println("인터셉터!");
 		boolean isLogout = SecurityUtils.isLogout(request);
