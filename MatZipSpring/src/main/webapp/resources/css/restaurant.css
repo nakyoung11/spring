@@ -1,5 +1,7 @@
 @charset "UTF-8";
 
+
+
 .recommendMenuContainer{
 	width:1200px;
 	height:300px;
@@ -44,7 +46,9 @@ cursor: pointer;
 	
 }
 
-.MenuContainer .MenuItem .pic img{
+#text{color:red}
+
+.MenuContainer .MenuItem img{
 	width: 50px;
 	height: 50px;
    
@@ -60,3 +64,47 @@ top:5px;
 font-size: 1px;
 margin-left:10px;
 cursor: pointer;
+}
+
+#carouselContainer{	
+	transition: 0.5s;
+	opacity: 0;
+	z-index: -10;
+	position:fixed;
+
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	background-color: #000A;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#carouselContainer #imgContainer{
+	background-color: #fff;
+	width:60%;
+	height:80%;
+	position:fixed;
+}
+#carouselContainer .material-icons{
+	position: absolute;
+	top:40px;
+	right: 40px;
+	color:#fff;
+	cursor: pointer;
+	font-size:3em
+}
+
+.swiper-container{
+	height: 100%;
+}
+.swiper-button-next, .swiper-button-prev{
+	color:#9E9E9E
+}
+.swiper-pagination-bullet-active {var(--swiper-pagination-color,var(--red))}
+
+
+
+

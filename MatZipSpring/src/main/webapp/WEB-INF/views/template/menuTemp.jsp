@@ -10,7 +10,7 @@
 
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="/res/css/common.css">
+<link rel="stylesheet" type="text/css" href="/res/css/common.css?dkkjdj=100">
 
 <c:forEach items="${css}" var="item">
 		<link rel="stylesheet" type="text/css" href="/res/css/${item}.css">		
@@ -76,9 +76,9 @@
 			<jsp:include page="/WEB-INF/views/${view}.jsp"></jsp:include>
 			
 		</section>
-			</div>
+			
 		<footer> 회사정보 </footer>
 	
-
+</div>
 </body>
 </html>

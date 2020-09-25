@@ -25,6 +25,13 @@ public class FileUtils {
 		return UUID.randomUUID()+ext;
 	}
 	
+	public static boolean delFile(String path) {
+		File file = new File(path);
+		if(file.exists()) {
+			return file.delete();
+		}
+		return false;
+	}
 	
 	
 	public static String saveFile(String path, MultipartFile mf) {

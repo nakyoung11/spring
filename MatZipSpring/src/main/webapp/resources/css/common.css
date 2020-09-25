@@ -1,15 +1,5 @@
 @charset "UTF-8";
 
-<!
--상업용폰트
- 
-확인
- 
-꼭
- 
-하기
- 
--->
 @font-face {
 	font-family: 'IBMPlexSansKR-Regular';
 	src:
@@ -120,6 +110,7 @@ html, body {
 	justify-content: center;
 	align-items: center;
 	flex-grow: 1;
+	
 }
 
 #container>footer {

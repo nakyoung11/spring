@@ -46,14 +46,21 @@ public class RestController {
 		List<RestRecMenuVO> list =service.selRestRecMenus(param);
 		
 		
-		model.addAttribute("menuList", service.selRestMenus(param));
-		model.addAttribute("css", new String[]{"restaurant"});
+		//model.addAttribute("menuList", service.selRestMenus(param));
+		model.addAttribute("css", new String[]{"restaurant","swiper-bundle.min"});
 		model.addAttribute("recMenuList", list);
 		model.addAttribute("data", data);
 		model.addAttribute(Const.TITLE,data.getNm());
 		model.addAttribute(Const.VIEW,"rest/restDetail");
 		return ViewRef.TEMP_MENU_TEMP;
 		
+	}
+	
+	@RequestMapping("/ajaxSelMenuList")
+	@ResponseBody
+	public List<RestRecMenuVO> ajaxSelMenuList(RestPARAM param){
+		return service.selRestMenus(param);
+	
 	}
 
 	
@@ -123,7 +130,15 @@ public class RestController {
 		param.setI_user(SecurityUtils.getLoginUserPk(hs));
 		String path="/resources/img/rest/" + param.getI_rest() + "/rec_menu/";
 		String realPath=hs.getServletContext().getRealPath(path);
-		return service.delRecMenu(param, realPath);
+		return service.delRestRecMenu(param, realPath);
+	}	
+	
+	
+	@RequestMapping(value="/ajaxDelMenu")
+	@ResponseBody public int ajaxDelMenu(RestPARAM param) { //i_rest, seq, menu_pic
+		
+		
+		return service.delRestMenu(param);
 	}	
 	
 	@RequestMapping("/menus")
