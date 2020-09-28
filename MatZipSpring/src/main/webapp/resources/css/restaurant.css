@@ -7,10 +7,13 @@
 	height:300px;
 	overflow-y:hidden; 
  	overflow-x:auto; 
-	padding: 5px;
+	padding: 10px;
 	display:flex;
+	margin-top:50px;
 	flex-direction:row
 }
+.title {display: flex; flex-flow: row nowrap; align-items: center;}
+#zzim {line-height: 2; margin-left: 10px}
 
 .recommendMenuContainer .recMenuItem{
 
@@ -24,6 +27,10 @@
    
 
 }
+
+.cnt_hit{margin-right: 20px}
+.status{margin-top: 20px; display: flex; align-items: center;}
+.status span{margin-right: 5px}
 .delIconContainer >.material-icons{
 position: absolute;
 top:15px;
@@ -84,8 +91,8 @@ cursor: pointer;
 
 #carouselContainer #imgContainer{
 	background-color: #fff;
-	width:60%;
-	height:80%;
+	width:700px;
+	height:700px;
 	position:fixed;
 }
 #carouselContainer .material-icons{
@@ -96,15 +103,18 @@ cursor: pointer;
 	cursor: pointer;
 	font-size:3em
 }
+#carouselContainer >.material-icons:last-child{top: 90px;}
 
-.swiper-container{
-	height: 100%;
+
+.swiper-container img{
+	height: 700px;
+	width: 700px;
 }
 .swiper-button-next, .swiper-button-prev{
 	color:#9E9E9E
 }
 .swiper-pagination-bullet-active {var(--swiper-pagination-color,var(--red))}
-
+caption{position: absolute; top:-999999px;height: 1px;  }
 
 
 
