@@ -1,0 +1,83 @@
+@charset "UTF-8";
+
+.f-user {
+	margin:0;
+	width: 100%;
+	height: 50px;
+	background: #FFE199;
+	position: absolute;
+	top: 67px;
+	left: 0;
+	text-align: center;
+}
+
+.container {
+	width: 1200px;
+	display: flex;
+	flex-flow: column wrap;
+	justify-content: center;
+	align-content: center;
+}
+
+.f-item {
+	width: 90%;
+	height: 340px;
+	padding: 35px;
+	display: flex;
+	border-bottom: 1px solid #B8B6AD;
+}
+
+.f-item:first-child {
+	margin-top: 50px;
+}
+
+.f-item .pic img {
+	width: 300px;
+	height: 280px;
+	border-radius: 20px;
+}
+
+.f-item .ctnt {
+	flex-grow: 1;
+
+	padding: 20px;
+}
+
+.f-info {
+	display: flex;
+	flex-flow: column;
+	flex-grow: 2;
+}
+
+.addr {
+	width:100%;
+	padding-left: 10px;
+	margin-bottom: 10px
+}
+
+.f-item .ctnt .f-ti_fa {
+	display: flex;
+	flex-flow: row nowrap;
+	border-bottom: 1px solid #CCCC9D;
+	align-items: center;
+}
+
+.f-fa span {
+	align-self: flex-end;
+}
+
+
+.f-title {
+	
+	padding-bottom: 15px;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.f-ctnt {
+	margin-top: 15px;
+	padding-left: 10px
+}
+
+.bottom{display: flex; flex-flow: row nowrap; justify-content: flex-start; }
+.bottom .info img{width: 80px; height:100px; margin-left: 5px; border-radius: 10px}

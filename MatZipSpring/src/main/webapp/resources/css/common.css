@@ -60,7 +60,7 @@ html, body {
 	flex-grow: 2;
 	margin-right: 50px;
 }
-#search{margin-left: 30%; border-bottom: 1px solid black;}
+#search{margin-left:  40%; border-bottom: 1px solid black;}
 #search>input{width: 400px; height: 30px ; border: 0; background: none
 }
 #searchI{font-size:20px}

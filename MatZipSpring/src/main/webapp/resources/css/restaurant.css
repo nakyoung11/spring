@@ -37,8 +37,12 @@ top:15px;
 font-size: 18px;
 margin-left:10px;
 cursor: pointer;
+color:#CFCFCF;
 
 }
+
+.delIconContainer >.material-icons:hover{color:red}
+
 .MenuContainer{
 	width:500px;
 	height:70px;
@@ -88,6 +92,8 @@ cursor: pointer;
 	justify-content: center;
 	align-items: center;
 }
+
+
 
 #carouselContainer #imgContainer{
 	background-color: #fff;

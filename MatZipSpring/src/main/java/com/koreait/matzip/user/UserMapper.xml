@@ -25,6 +25,17 @@
 		<if test="user_id != null and user_id != ''"> user_id = #{user_id}</if>
 	</select>
 	
+	<select id="selFaboriteList" parameterType="UserPARAM" resultType="UserDMI">
+		SELECT
+			A.i_rest, A.i_user, A.r_dt
+			, b.nm AS rest_nm
+			, b.addr AS rest_addr
+		FROM t_user_favorite A
+		INNER JOIN t_restaurant B
+			ON A.i_rest = B.i_rest
+		WHERE A.i_user = #{i_user}		
+	</select>
+	
 	
 	<delete id="delFavorite" parameterType="UserPARAM">
 		DELETE FROM t_user_favorite

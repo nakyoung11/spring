@@ -37,7 +37,7 @@
 				<span class="material-icons">add_business</span></a>
 				</c:if>
 			
-			    <a href="/user/restFavorite" class="round">
+			    <a href="/user/favorite" class="round">
 			    <span class="material-icons">favorite</span></a>
 			<div id="search">
 			<input type="search" placeholder="검색어를 입력하세요"></div>

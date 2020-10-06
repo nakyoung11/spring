@@ -52,7 +52,7 @@ public class RestController {
 		
 		
 		//model.addAttribute("menuList", service.selRestMenus(param));
-		model.addAttribute("css", new String[]{"restaurant","swiper-bundle.min"});
+		model.addAttribute(Const.CSS, new String[]{"restaurant","swiper-bundle.min"});
 		model.addAttribute("recMenuList", list);
 		model.addAttribute("data", data);
 		model.addAttribute(Const.TITLE,data.getNm());

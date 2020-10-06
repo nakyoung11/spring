@@ -5,7 +5,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,7 +15,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.koreait.matzip.Const;
 import com.koreait.matzip.SecurityUtils;
 import com.koreait.matzip.ViewRef;
-import com.koreait.matzip.rest.model.RestFile;
 import com.koreait.matzip.user.model.UserPARAM;
 import com.koreait.matzip.user.model.UserVO;
 
@@ -104,6 +102,23 @@ public class UserController {
 	
 		return service.ajaxToggleFavorite(param);
 	}
+	
+	@RequestMapping("/favorite")
+	public String favorite(Model model, HttpSession hs) {
+		int i_user =SecurityUtils.getLoginUserPk(hs);
+		UserPARAM param=new UserPARAM();
+		
+		param.setI_user(i_user);
+		
+		model.addAttribute("data", service.selFaboriteList(param));
+		
+		model.addAttribute("css", new String[] {"userFavorite"});
+		model.addAttribute(Const.TITLE,"나의 좋아요 리스트");
+		model.addAttribute(Const.VIEW,"user/favorite");
+		return ViewRef.TEMP_MENU_TEMP;
+		
+	}
+	
 	
 	
 
